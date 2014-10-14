@@ -5,16 +5,19 @@
 package com.arjuna.dbplugins.jdbc.postgresql;
 
 import java.sql.Connection;
+import java.util.Map;
+import com.arjuna.dbplugins.jdbc.postgresql.metadata.DatabaseView;
+import com.arjuna.dbplugins.jdbc.postgresql.metadata.TableView;
 
 public class PostgreSQLUtil
 {
-	public Connection createDatabase()
-	{
-		return null;
-	}
-
-    public Boolean createTable()
+    public Connection obtainDatabase(DatabaseView databaseView)
     {
-    	return null;
+        return null;
+    }
+
+    public Boolean insertRowTable(TableView tableView, Map<String, Object> data)
+    {
+        return null;
     }
 }
