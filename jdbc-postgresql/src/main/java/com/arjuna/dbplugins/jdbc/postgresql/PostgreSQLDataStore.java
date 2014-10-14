@@ -11,12 +11,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import com.arjuna.databroker.data.DataConsumer;
 import com.arjuna.databroker.data.DataFlow;
 import com.arjuna.databroker.data.DataProvider;
 import com.arjuna.databroker.data.DataStore;
 import com.arjuna.databroker.data.jee.annotation.DataConsumerInjection;
 import com.arjuna.databroker.data.jee.annotation.DataProviderInjection;
+import com.arjuna.databroker.data.jee.annotation.PostActivated;
 
 public class PostgreSQLDataStore implements DataStore
 {
@@ -66,6 +68,11 @@ public class PostgreSQLDataStore implements DataStore
         _dataFlow = dataFlow;
     }
 
+    @PostActivated
+    public void createTables()
+    {
+    }
+    
     public void store(String data)
     {
         logger.log(Level.FINE, "PostgreSQLDataStore.store: data = " + data);
