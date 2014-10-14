@@ -5,18 +5,41 @@
 package com.arjuna.dbplugins.jdbc.postgresql;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Map;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.arjuna.dbplugins.jdbc.postgresql.metadata.DatabaseView;
 import com.arjuna.dbplugins.jdbc.postgresql.metadata.TableView;
 
 public class PostgreSQLUtil
 {
-    public Connection obtainDatabase(DatabaseView databaseView)
+    private static final Logger logger = Logger.getLogger(PostgreSQLUtil.class.getName());
+
+    public Connection obtainDatabaseConnection(DatabaseView databaseView)
     {
-        return null;
+        Connection connection = null;
+
+        try
+        {
+            String     databaseURL = "jdbc:postgresql://" + databaseView.getHostName() + ":" + databaseView.getPostNumber() + "/" + databaseView.getName();
+            Properties properties  = new Properties();
+            properties.setProperty("user", databaseView.getUserName());
+            properties.setProperty("password", databaseView.getPassword());
+
+            connection = DriverManager.getConnection(databaseURL, properties);
+        }
+        catch (Throwable throwable)
+        {
+            logger.log(Level.WARNING, "Unable to obtain database connection", throwable);
+        }
+
+        return connection;
     }
 
-    public Boolean insertRowTable(TableView tableView, Map<String, Object> data)
+    public Boolean insertTableRow(TableView tableView, Map<String, Object> data)
     {
         return null;
     }
