@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import com.arjuna.dbplugins.jdbc.postgresql.metadata.DatabaseView;
 import com.arjuna.dbplugins.jdbc.postgresql.metadata.TableView;
 
@@ -39,8 +38,21 @@ public class PostgreSQLUtil
         return connection;
     }
 
-    public Boolean insertTableRow(TableView tableView, Map<String, Object> data)
+    public Boolean insertTableRow(Connection connection, TableView tableView, Map<String, Object> data)
     {
-        return null;
+        try
+        {
+        	if (connection != null)
+        	{
+                return Boolean.TRUE;
+        	}
+        	else
+        		return Boolean.FALSE;
+        }
+        catch (Throwable throwable)
+        {
+            logger.log(Level.WARNING, "Unable to insert table row", throwable);
+            return Boolean.FALSE;
+        }
     }
 }
