@@ -22,6 +22,13 @@
     <dependencies>
         <dependency>
             <groupId>com.arjuna.dbplugins</groupId>
+            <artifactId>jdbc-postgresql</artifactId>
+            <version>1.0.0p1m2l</version>
+            <scope>provided</scope>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>com.arjuna.dbplugins</groupId>
             <artifactId>jdbc-plugin</artifactId>
             <version>1.0.0p1m2l</version>
             <scope>provided</scope>
@@ -36,6 +43,12 @@
                 <artifactId>maven-ear-plugin</artifactId>
                 <configuration>
                     <includeLibInApplicationXml>true</includeLibInApplicationXml>
+                    <modules>
+                        <ejbModule>
+                            <groupId>com.arjuna.dbplugins</groupId>
+                            <artifactId>jdbc-postgresql</artifactId>
+                        </ejbModule>
+                    </modules>
                     <modules>
                         <ejbModule>
                             <groupId>com.arjuna.dbplugins</groupId>
