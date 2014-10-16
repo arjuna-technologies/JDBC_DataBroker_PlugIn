@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import com.arjuna.databroker.data.DataConsumer;
 import com.arjuna.databroker.data.DataFlow;
 import com.arjuna.databroker.data.DataProvider;
@@ -20,11 +21,23 @@ import com.arjuna.databroker.data.jee.annotation.DataConsumerInjection;
 import com.arjuna.databroker.data.jee.annotation.DataProviderInjection;
 import com.arjuna.databroker.data.jee.annotation.PostDeactivated;
 import com.arjuna.databroker.data.jee.annotation.PreActivated;
+import com.arjuna.databroker.metadata.Metadata;
+import com.arjuna.databroker.metadata.MetadataContent;
+import com.arjuna.databroker.metadata.MetadataContentStore;
+import com.arjuna.databroker.metadata.MetadataInventory;
+import com.arjuna.databroker.metadata.rdf.RDFMetadataContent;
+import com.arjuna.databroker.metadata.rdf.StoreMetadataInventory;
+import com.arjuna.databroker.metadata.rdf.selectors.RDFMetadataContentSelector;
+import com.arjuna.databroker.metadata.rdf.selectors.RDFMetadataContentsSelector;
+import com.arjuna.databroker.metadata.selectors.MetadataSelector;
 import com.arjuna.dbplugins.jdbc.postgresql.metadata.DatabaseView;
 
 public class PostgreSQLDataStore implements DataStore
 {
     private static final Logger logger = Logger.getLogger(PostgreSQLDataStore.class.getName());
+
+    public static final String DATABASE_METADATAID_PROPERTYNAME   = "Database Metadata Id";
+    public static final String DATABASE_METADATAPATH_PROPERTYNAME = "Database Metadata Path";
 
     public PostgreSQLDataStore(String name, Map<String, String> properties)
     {
@@ -73,7 +86,14 @@ public class PostgreSQLDataStore implements DataStore
     @PreActivated
     public void obtainDatabaseConnection()
     {
-        DatabaseView databaseView = null;
+        MetadataInventory           metadataInventory               = new StoreMetadataInventory(_metadataContentStore);
+        MetadataSelector            metadataSelector                = metadataInventory.metadata(_properties.get(DATABASE_METADATAID_PROPERTYNAME));
+        Metadata                    metadata                        = metadataSelector.getMetadata();
+        RDFMetadataContentsSelector metadataContentSelector         = metadata.contents().selector(RDFMetadataContentsSelector.class);
+        RDFMetadataContentSelector  databaseMetadataContentSelector = metadataContentSelector.withPath("http://rdfs.arjuna.com/jdbc/postgresql/database#Database");
+        MetadataContent             databaseMetadataContent         = databaseMetadataContentSelector.getMetadataContent();
+
+        DatabaseView databaseView = databaseMetadataContent.getView(DatabaseView.class);
 
         _connection = PostgreSQLUtil.obtainDatabaseConnection(databaseView);
     }
@@ -145,7 +165,10 @@ public class PostgreSQLDataStore implements DataStore
     }
 
     private Connection _connection;
-    
+
+    @EJB
+    private MetadataContentStore _metadataContentStore;
+
     private String               _name;
     private Map<String, String>  _properties;
     private DataFlow             _dataFlow;
