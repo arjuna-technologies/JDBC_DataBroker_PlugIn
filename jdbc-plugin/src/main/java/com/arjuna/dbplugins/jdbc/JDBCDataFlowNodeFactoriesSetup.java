@@ -23,6 +23,7 @@ public class JDBCDataFlowNodeFactoriesSetup
     @PostConstruct
     public void setup()
     {
+        System.err.println("Setup : PostgreSQL Data Flow Nodes Factory");
         DataFlowNodeFactory postgresqlDataFlowNodeFactory = new PostgreSQLDataFlowNodeFactory("PostgreSQL Data Flow Nodes Factory", Collections.<String, String>emptyMap());
 
         _dataFlowNodeFactoryInventory.addDataFlowNodeFactory(postgresqlDataFlowNodeFactory);
@@ -31,6 +32,7 @@ public class JDBCDataFlowNodeFactoriesSetup
     @PreDestroy
     public void cleanup()
     {
+        System.err.println("Cleanup : PostgreSQL Data Flow Nodes Factory");
         _dataFlowNodeFactoryInventory.removeDataFlowNodeFactory("PostgreSQL Data Flow Nodes Factory");
     }
 
