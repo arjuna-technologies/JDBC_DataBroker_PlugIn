@@ -25,7 +25,6 @@ import com.arjuna.databroker.metadata.Metadata;
 import com.arjuna.databroker.metadata.MetadataContent;
 import com.arjuna.databroker.metadata.MetadataContentStore;
 import com.arjuna.databroker.metadata.MetadataInventory;
-import com.arjuna.databroker.metadata.rdf.RDFMetadataContent;
 import com.arjuna.databroker.metadata.rdf.StoreMetadataInventory;
 import com.arjuna.databroker.metadata.rdf.selectors.RDFMetadataContentSelector;
 import com.arjuna.databroker.metadata.rdf.selectors.RDFMetadataContentsSelector;
