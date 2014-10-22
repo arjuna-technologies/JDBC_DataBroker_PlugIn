@@ -16,6 +16,8 @@
         <dependencies>
             <module name="deployment.databroker.ear.data-common.jar"/>
             <module name="deployment.databroker.ear.data-common-jee.jar"/>
+            <module name="deployment.databroker.ear.metadata-common.jar"/>
+            <module name="deployment.databroker.ear.metadata-rdf.jar"/>
         </dependencies>
     </sub-deployment>
 </jboss-deployment-structure>
