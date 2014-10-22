@@ -50,26 +50,59 @@ public class PostgreSQLDataFlowNodeFactory implements DataFlowNodeFactory
 
     @Override
     public <T extends DataFlowNode> List<String> getMetaPropertyNames(Class<T> dataFlowNodeClass)
+        throws InvalidClassException
     {
-        return Collections.emptyList();
+        if (dataFlowNodeClass.isAssignableFrom(PostgreSQLDataStore.class))
+            return Collections.emptyList();
+        else
+            throw new InvalidClassException("Unsupported class", dataFlowNodeClass.getName());
     }
 
     @Override
     public <T extends DataFlowNode> List<String> getPropertyNames(Class<T> dataFlowNodeClass, Map<String, String> metaProperties)
         throws InvalidClassException, InvalidMetaPropertyException, MissingMetaPropertyException
     {
-        return Collections.emptyList();
+        if (dataFlowNodeClass.isAssignableFrom(PostgreSQLDataStore.class))
+        {
+            if (metaProperties.isEmpty())
+            {
+                List<String> propertyNames = new LinkedList<String>();
+
+                propertyNames.add(PostgreSQLDataStore.DATABASE_METADATAID_PROPERTYNAME);
+                propertyNames.add(PostgreSQLDataStore.DATABASE_METADATAPATH_PROPERTYNAME);
+
+                return propertyNames;
+            }
+            else
+                throw new InvalidMetaPropertyException("No metaproperties expected", null, null);
+        }
+        else
+            throw new InvalidClassException("Unsupported class", dataFlowNodeClass.getName());
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public <T extends DataFlowNode> T createDataFlowNode(String name, Class<T> dataFlowNodeClass, Map<String, String> metaProperties, Map<String, String> properties)
-        throws InvalidNameException, InvalidPropertyException, MissingPropertyException
+        throws InvalidNameException, InvalidClassException, InvalidMetaPropertyException, MissingMetaPropertyException, InvalidPropertyException, MissingPropertyException
     {
         if (dataFlowNodeClass.isAssignableFrom(PostgreSQLDataStore.class))
-            return (T) new PostgreSQLDataStore(name, properties);
+        {
+            if (metaProperties.isEmpty())
+            {
+                if (! properties.containsKey(PostgreSQLDataStore.DATABASE_METADATAID_PROPERTYNAME))
+                    throw new MissingPropertyException("Properties expected", PostgreSQLDataStore.DATABASE_METADATAID_PROPERTYNAME);
+                else if (! properties.containsKey(PostgreSQLDataStore.DATABASE_METADATAPATH_PROPERTYNAME))
+                    throw new MissingPropertyException("Properties expected", PostgreSQLDataStore.DATABASE_METADATAID_PROPERTYNAME);
+                else if (properties.size() != 2)
+                    throw new InvalidPropertyException("Unexpected properties", null, null);
+
+                return (T) new PostgreSQLDataStore(name, properties);
+            }
+            else
+                throw new InvalidMetaPropertyException("No metaproperties expected", null, null);
+        }
         else
-            return null;
+            throw new InvalidClassException("Unsupported class", dataFlowNodeClass.getName());
     }
 
     private String              _name;
