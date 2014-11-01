@@ -12,7 +12,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
+
 import com.arjuna.databroker.data.DataConsumer;
 import com.arjuna.databroker.data.DataFlow;
 import com.arjuna.databroker.data.DataProvider;
@@ -29,7 +31,7 @@ import com.arjuna.databroker.metadata.rdf.StoreMetadataInventory;
 import com.arjuna.databroker.metadata.rdf.selectors.RDFMetadataContentSelector;
 import com.arjuna.databroker.metadata.rdf.selectors.RDFMetadataContentsSelector;
 import com.arjuna.databroker.metadata.selectors.MetadataSelector;
-import com.arjuna.dbplugins.jdbc.postgresql.metadata.DatabaseView;
+import com.arjuna.dbutils.metadata.jdbc.DatabaseView;
 
 public class PostgreSQLDataStore implements DataStore
 {
