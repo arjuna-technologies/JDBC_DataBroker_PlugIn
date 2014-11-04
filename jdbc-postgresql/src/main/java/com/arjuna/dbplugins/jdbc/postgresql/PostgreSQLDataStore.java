@@ -12,9 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.ejb.EJB;
-
 import com.arjuna.databroker.data.DataConsumer;
 import com.arjuna.databroker.data.DataFlow;
 import com.arjuna.databroker.data.DataProvider;
@@ -91,7 +89,7 @@ public class PostgreSQLDataStore implements DataStore
         MetadataSelector            metadataSelector                = metadataInventory.metadata(_properties.get(DATABASE_METADATAID_PROPERTYNAME));
         Metadata                    metadata                        = metadataSelector.getMetadata();
         RDFMetadataContentsSelector metadataContentSelector         = metadata.contents().selector(RDFMetadataContentsSelector.class);
-        RDFMetadataContentSelector  databaseMetadataContentSelector = metadataContentSelector.withPath("http://rdfs.arjuna.com/jdbc/postgresql/database#Database");
+        RDFMetadataContentSelector  databaseMetadataContentSelector = metadataContentSelector.withPath(_properties.get(DATABASE_METADATAPATH_PROPERTYNAME));
         MetadataContent             databaseMetadataContent         = databaseMetadataContentSelector.getMetadataContent();
 
         DatabaseView databaseView = databaseMetadataContent.getView(DatabaseView.class);
