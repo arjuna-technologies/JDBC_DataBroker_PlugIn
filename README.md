@@ -6,7 +6,7 @@ JDBC DataBroker PlugIn
 Licence
 -------
 
-Copyright (c) 2014:
+Copyright (c) 2014-2015:
 ```
    Arjuna Technologies Limited, Newcastle-upon-Tyne, England.
 ```
