@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, Arjuna Technologies Limited, Newcastle-upon-Tyne, England. All rights reserved.
+ * Copyright (c) 2014-2015, Arjuna Technologies Limited, Newcastle-upon-Tyne, England. All rights reserved.
  */
 
 package com.arjuna.dbplugins.jdbc.postgresql;
@@ -29,7 +29,7 @@ import com.arjuna.databroker.metadata.rdf.StoreMetadataInventory;
 import com.arjuna.databroker.metadata.rdf.selectors.RDFMetadataContentSelector;
 import com.arjuna.databroker.metadata.rdf.selectors.RDFMetadataContentsSelector;
 import com.arjuna.databroker.metadata.selectors.MetadataSelector;
-import com.arjuna.dbutils.metadata.jdbc.DatabaseView;
+import com.arjuna.dbutils.metadata.jdbc.view.DatabaseView;
 
 public class PostgreSQLDataStore implements DataStore
 {
