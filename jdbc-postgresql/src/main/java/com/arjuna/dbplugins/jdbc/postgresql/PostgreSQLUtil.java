@@ -14,8 +14,8 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.arjuna.dbutils.metadata.jdbc.DatabaseView;
-import com.arjuna.dbutils.metadata.jdbc.TableView;
+import com.arjuna.dbutils.metadata.jdbc.view.DatabaseView;
+import com.arjuna.dbutils.metadata.jdbc.view.TableView;
 
 public class PostgreSQLUtil
 {

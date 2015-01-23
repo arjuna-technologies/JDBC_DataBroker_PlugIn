@@ -40,6 +40,6 @@ public class JDBCDataFlowNodeFactoriesSetup
         _dataFlowNodeFactoryInventory.removeDataFlowNodeFactory("PostgreSQL Data Flow Nodes Factory");
     }
 
-    @EJB(lookup="java:global/databroker/control-core/DataFlowNodeFactoryInventory")
+    @EJB(lookup="java:global/databroker/data-core-jee/DataFlowNodeFactoryInventory")
     private DataFlowNodeFactoryInventory _dataFlowNodeFactoryInventory;
 }
